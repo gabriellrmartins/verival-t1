@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TriangleClassifier.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">triangle-classifier</a> &gt; <a href="index.source.html" class="el_package">com.example.triangle</a> &gt; <span class="el_source">TriangleClassifier.java</span></div><h1>TriangleClassifier.java</h1><pre class="source lang-java linenums">package com.example.triangle;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Classe responsável por classificar triângulos com base nos comprimentos de seus lados,
+ * seguindo as regras do problema 1045 do BeeCrowd.
+ */
+<span class="fc" id="L12">public class TriangleClassifier {</span>
+
+    // Constante para tolerância em comparações de números de ponto flutuante (double).
+    // Este valor (1e-15) é crucial para a correção dos testes de limite,
+    // especialmente para o caso do triângulo retângulo isósceles com Math.sqrt(2.0).
+    private static final double EPSILON = 1e-15;
+
+    /**
+     * Classifica um triângulo com base nos comprimentos de seus três lados.
+     *
+     * @param s1 Comprimento do lado 1.
+     * @param s2 Comprimento do lado 2.
+     * @param s3 Comprimento do lado 3.
+     * @return Uma lista de strings contendo as classificações do triângulo.
+     * A ordem das classificações é: tipo de ângulo (se formar triângulo),
+     * seguido por tipo de lado (equilátero ou isósceles, se aplicável).
+     */
+    public List&lt;String&gt; classify(double s1, double s2, double s3) {
+<span class="fc" id="L30">        List&lt;String&gt; classifications = new ArrayList&lt;&gt;();</span>
+
+        // Cria um array com os lados para facilitar a ordenação.
+<span class="fc" id="L33">        Double[] sidesArray = {s1, s2, s3};</span>
+        // Ordena os lados em ordem decrescente.
+        // O maior lado será 'a', seguido por 'b' e 'c'.
+<span class="fc" id="L36">        Arrays.sort(sidesArray, Collections.reverseOrder());</span>
+<span class="fc" id="L37">        double a = sidesArray[0]; // Maior lado</span>
+<span class="fc" id="L38">        double b = sidesArray[1];</span>
+<span class="fc" id="L39">        double c = sidesArray[2]; // Menor lado</span>
+
+        // Passo 1: Verificar se os lados formam um triângulo.
+        // Se o maior lado 'a' for não positivo (considerando EPSILON),
+        // ou se a desigualdade triangular (a &lt; b+c) não for satisfeita (a &gt;= b+c, considerando EPSILON).
+<span class="fc bfc" id="L44" title="All 4 branches covered.">        if (a &lt;= EPSILON || a &gt;= (b + c) - EPSILON) {</span>
+<span class="fc" id="L45">            classifications.add(&quot;NAO FORMA TRIANGULO&quot;);</span>
+        } else {
+            // Passo 2: Classificar quanto aos ângulos (apenas se formar triângulo).
+<span class="fc" id="L48">            double a2 = a * a; // Quadrado do maior lado</span>
+<span class="fc" id="L49">            double b2PlusC2 = (b * b) + (c * c); // Soma dos quadrados dos outros dois lados</span>
+
+            // Compara a^2 com b^2 + c^2 usando EPSILON para tratar igualdade de ponto flutuante.
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if (Math.abs(a2 - b2PlusC2) &lt; EPSILON) { </span>
+<span class="fc" id="L53">                classifications.add(&quot;TRIANGULO RETANGULO&quot;);</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">            } else if (a2 &gt; b2PlusC2 + EPSILON) { // Verifica se a2 é significativamente maior que b2PlusC2</span>
+<span class="fc" id="L55">                classifications.add(&quot;TRIANGULO OBTUSANGULO&quot;);</span>
+            } else { // Caso contrário (a2 é significativamente menor que b2PlusC2)
+<span class="fc" id="L57">                classifications.add(&quot;TRIANGULO ACUTANGULO&quot;);</span>
+            }
+
+            // Passo 3: Classificar quanto aos lados (apenas se formar triângulo).
+            // Verifica igualdade entre os lados usando EPSILON.
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            boolean aEqualsB = Math.abs(a - b) &lt; EPSILON;</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            boolean bEqualsC = Math.abs(b - c) &lt; EPSILON;</span>
+
+<span class="fc bfc" id="L65" title="All 4 branches covered.">            if (aEqualsB &amp;&amp; bEqualsC) { </span>
+<span class="fc" id="L66">               classifications.add(&quot;TRIANGULO EQUILATERO&quot;);</span>
+
+<span class="fc bfc" id="L68" title="All 4 branches covered.">            } else if (aEqualsB || bEqualsC) { </span>
+<span class="fc" id="L69">                classifications.add(&quot;TRIANGULO ISOSCELES&quot;);</span>
+            }
+        }
+<span class="fc" id="L72">        return classifications;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
