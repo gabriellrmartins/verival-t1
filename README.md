@@ -1,4 +1,4 @@
-# Trabalho T1: Teste de Software - Classificador de Triângulos (BeeCrowd 1045)
+# Trabalho T1: Verival - Classificador de Triângulos (BeeCrowd 1045)
 
 Este projeto implementa e testa um classificador de triângulos baseado no problema 1045 do BeeCrowd ("Tipos de Triângulos"). O objetivo é aplicar diversas técnicas de teste de software para garantir a qualidade e a corretude da solução.
 
