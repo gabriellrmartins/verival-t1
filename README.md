@@ -93,7 +93,3 @@ Neste trabalho, foram aplicadas as seguintes quatro técnicas de teste:
 * A cobertura de código para a classe `TriangleClassifier`, medida pelo JaCoCo, é de [INSIRA AQUI A SUA COBERTURA, ex: 100% de instruções e X% de ramos].
 * A combinação das técnicas de teste e a subsequente depuração (especialmente em relação ao `EPSILON` para comparações de ponto flutuante) resultaram numa suíte de testes robusta, capaz de detetar diversas falhas injetadas, aumentando a confiança na corretude do classificador de triângulos.
 
-## Evidências e Documentação Adicional
-* **Wiki do Projeto:** [Link para a Wiki do GitHub do seu projeto aqui]
-* **Issues do Projeto:** [Link para as Issues do GitHub do seu projeto aqui]
-
